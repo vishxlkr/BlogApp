@@ -2,10 +2,17 @@ import React from "react";
 import { assets } from "../../assets/assets";
 import { Outlet, useNavigate } from "react-router-dom";
 import Sidebar from "../../components/admin/Sidebar";
+import { useAppContext } from "../../context/AppContext";
 
 const Layout = () => {
-   const navigate = useNavigate();
+   const { axios, setToken, navigate } = useAppContext();
+   // const navigate = useNavigate();
+
    const logout = () => {
+      localStorage.removeItem("token");
+      axios.defaults.headers.common["Authorization"] = null;
+
+      setToken(null);
       navigate("/");
    };
    return (
@@ -14,12 +21,12 @@ const Layout = () => {
             <img
                src={assets.logo}
                className="w-32 sm:w-40 cursor-pointer"
-               onClick={logout}
+               onClick={() => navigate("/")}
                alt=""
             />
             <button
                className="text-sm px-8 py-2 bg-primary text-white rounded-full cursor-pointer"
-               onClick={() => navigate("/")}
+               onClick={logout}
             >
                Logout
             </button>
