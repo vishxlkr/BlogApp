@@ -31,6 +31,7 @@ export const getAllBlogsAdmin = async (req, res) => {
 
 export const getAllComments = async (req, res) => {
    try {
+      asdf;
       const comments = await Comment.find({})
          .populate("blog")
          .sort({ createdAt: -1 });
